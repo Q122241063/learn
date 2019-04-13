@@ -42,11 +42,10 @@ $params = [
 ];
 
 // 发送请求并获取响应信息
-$response = sendRequest($url, $params);
+$response = sendRequest($url, $params, ['Accept: application/json']);
 
-var_dump($response); exit;
+var_dump($response);exit;
 // 如果有响应信息， 说明请求成功， 使用 access_token 获取用户信息
 // if ($response) {
-    // $access_token = $response();
+// $access_token = $response();
 // }
-
