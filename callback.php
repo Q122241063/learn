@@ -53,12 +53,13 @@ if (!empty($response['access_token'])) {
 
     // 发送请求，调取github API 获取用户信息
     $userInfo =  sendRequest($url,[],[
+        "Accept: application/json",
         "User-Agent:liaohui8",
         "Authorization:token {$access_token}"
     ]);
 
     echo "<p>登陆成功</p></pre>";
-    var_dump($userInfo);
+    var_dump(json_decode($userInfo, true));
     exit("</pre>");
 }
 
