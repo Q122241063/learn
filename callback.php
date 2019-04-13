@@ -43,9 +43,25 @@ $params = [
 
 // 发送请求并获取响应信息
 $response = sendRequest($url, $params, ['Accept: application/json']);
+$response = json_decode($response, true);
 
-var_dump($response);exit;
-// 如果有响应信息， 说明请求成功， 使用 access_token 获取用户信息
-// if ($response) {
-// $access_token = $response();
-// }
+// 如果有响应信息， 说明请求成功
+if (!empty($response['access_token'])) {
+    // 请求成功，使用 access_token 获取用户信息
+    $access_token = $response['access_token'];
+    $url = "https://api.github.com/user";
+
+    // 发送请求，调取github API 获取用户信息
+    $userInfo =  sendRequest($url,[],[
+        "Authorization: token {$access_token}"
+    ]);
+
+    echo "<p>登陆成功</p></pre>";
+    var_dump($userInfo);
+    exit("</pre>");
+}
+
+// 如果登陆失败就打印错误信息
+echo "<p>登陆失败</p></pre>";
+var_dump($response);
+exit("</pre>");
